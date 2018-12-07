@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    Example Onodo
+  </title>
+  <link rel="stylesheet" href="javascripts/vendor/bootstrap/3.2.0/css/bootstrap.css" />
+  <link rel="stylesheet" href="stylesheets/grid.css" />
+  <link rel="stylesheet" href="stylesheets/slickgrid.css">
+  <link rel="stylesheet" href="javascripts/vendor/slickgrid/2.2/slick.grid.css">
+  <script type="text/javascript" src="javascripts/vendor/jquery/1.7.1/jquery.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/underscore/1.4.4/underscore.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/backbone/1.0.0/backbone.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/mustache/0.5.0-dev/mustache.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/bootstrap/3.2.0/js/bootstrap.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/jquery-ui-1.8.16.custom.min.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/jquery.event.drag-2.2.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/slick.core.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/slick.grid.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/slick.formatters.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/slick.editors.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/plugins/slick.rowselectionmodel.js"></script>
+  <script type="text/javascript" src="javascripts/vendor/slickgrid/2.2/plugins/slick.rowmovemanager.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/xlsx/dist/shim.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+  <!-- include the backend code you need e.g. here for csv -->
+  <script type="text/javascript" src="http://okfnlabs.org/csv.js/csv.js"></script>
+
+  <!-- Or you can just include all of recline. -->
+  <script type="text/javascript" src="javascripts/ckan.js"></script>
+  <script type="text/javascript" src="javascripts/recline.js"></script>
+
+  <style>
+    .slick-header-column {
+      min-height: 32px !important;
+    }
+
+    #results {
+      width: 100%;
+      background-color: #f2f2f2;
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h3>Onodo</h3>
+    <p>
+      website
+      <br>
+      <a target="_blank" href="https://onodo.org/">https://onodo.org/</a>
+    </p>
+    <p>
+      Sample file from World Bank from API
+      <br>
+      <a target="_blank" href="https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFRICA' AND fiscal_year=2017 AND supplier !='Individual Consultant'">https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFRICA' AND fiscal_year=2017 AND supplier!='Individual Consultant'
+      </a>
+    </p>
+    <p>
+      Sample file from World Bank website
+      <br>
+      <a target="_blank" href="https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3">https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3
+      </a>
+      <form>
+        <div class="form-group">
+          <label for="exampleInputFile">1-Load CSV</label>
+          <input type="file" class="my-file-input" id="exampleInputFile">
+          <p class="help-block">Load CSV file.</p>
+        </div>
+
+
+      </form>
+      <form class="form-inline">
+        <div class="form-group panel panel-success">
+          <label for="cmb_node_source">Select NODE Source:(ex.borrower_contry)</label>
+          <br>
+          <select class="form-control" id="cmb_node_source" placeholder="Node source"></select>
+        </div>
+
+        <div class="form-group panel panel-success">
+          <label for="cmb_node_type">Relation type:(ex.procurament_category)</label>
+          <br>
+          <select class="form-control" id="cmb_node_type" placeholder="Node source"></select>
+        </div>
+
+        <div class="form-group panel panel-success">
+          <label for="cmb_node_target">Select NODE Target: (supplier)</label>
+          <br>
+          <select class="form-control" id="cmb_node_target" placeholder="Node source"></select>
+        </div>
+      </form>
+      <br>
+      <form>
+        <div class="form-group">
+          <button id="bt_send" type="button" class="btn btn-default btn-warning">Generate ONODO Excel</button>
+        </div>
+      </form>
+      <hr>
+      <div id="results"></div>
+      <div id="mygrid" style="height: 500px;font-size: 0.8em;"></div>
+
+  </div>
+
+  <script>
+    $.ajaxSetup({
+      cache: true
+    });
+    var dataset;
+    var arrayNodes = [];
+    var arrayRelations = [];
+    $(document).ready(function () {
+      var $file = $('.my-file-input')[0];
+
+      $($file).change(function (e) {
+        dataset = new recline.Model.Dataset({
+          file: $file.files[0],
+          backend: 'csv'
+        });
+
+        $('#results').show();
+        $('#results').html('<b>Loading.....</b>');
+
+        dataset.fetch().done(function () {
+          dataset.query({
+            size: parseInt(dataset.recordCount)
+          });
+          _addDatasets(dataset);
+        });
+        var grid = new recline.View.Grid({
+          model: dataset
+        });
+
+        $('#mygrid').html(grid.el);
+        $('#text_resource_name').val(nameF($('.my-file-input').val()));
+
+
+      });
+
+      function _addDatasets(_dataset) {
+        $('#results').hide();
+
+        for (var i = 0; i < _dataset.fields.models.length; i++) {
+          var field = _dataset.fields.models[i];
+
+
+
+
+          $("#cmb_node_source").append('<option value="' + field.attributes.id + '">' + field.attributes.id +
+            '</option>');
+          $("#cmb_node_type").append('<option value="' + field.attributes.id + '">' + field.attributes.id +
+            '</option>');
+          $("#cmb_node_target").append('<option value="' + field.attributes.id + '">' + field.attributes.id +
+            '</option>');
+
+
+        }
+        dataset = _dataset;
+
+      }
+
+      $('#bt_send').on('click', function () {
+        if (dataset) {
+          // var data = [["Name","Type","Description","Visible"],[true, false, null, "sheetjs"],["foo","bar",new Date("2014-02-19T14:30Z"), "0.3"], ["baz", null, "qux"]];
+          //var data2 = [["Source","Type","Target","Directed"],[true, false, null, "sheetjs"],["foo","bar",new Date("2014-02-19T14:30Z"), "0.3"], ["baz", null, "qux"]];
+
+          arrayNodes = [];
+          arrayRelations = [];
+          var arrayNodesRows = ["Name", "Type", "Description", "Visible"];
+          var arrayContries = [];
+          arrayNodes.push(arrayNodesRows);
+
+          var arrayRelationsRows = ["Source", "Type", "Target", "Directed"];
+          arrayRelations.push(arrayRelationsRows);
+          var NodeField = $("#cmb_node_source").val();
+          var NodeType = $("#cmb_node_type").val();
+          var NodeTarget = $("#cmb_node_target").val();
+
+          for (var i = 0; i < dataset.records.models.length; i++) {
+
+            var field = dataset.records.models[i];
+
+            arrayContries.push(field.attributes[NodeField]);
+            arrayRelationsRows = [field.attributes[NodeField], field.attributes[NodeType], field.attributes[
+              NodeTarget], 1];
+            arrayRelations.push(arrayRelationsRows);
+          }
+
+          var uniqueCountries = arrayContries.filter(onlyUnique);
+
+          for (j = 0; j < uniqueCountries.length; j++) {
+
+            arrayNodesRows = [uniqueCountries[j], "borrower", "", 1];
+            arrayNodes.push(arrayNodesRows);
+
+          }
+
+
+          downloadExcel();
+        } else {
+          alert("No CSV loaded")
+
+        }
+      })
+
+
+
+
+    });
+
+
+    function downloadExcel() {
+
+
+      var filename = "onodo.xlsx";
+      var data = arrayNodes;
+      var data2 = arrayRelations;
+      var ws_name = "Nodes";
+      var ws_name2 = "Relations";
+      if (typeof console !== 'undefined') console.log(new Date());
+      var wb = XLSX.utils.book_new(),
+        ws = XLSX.utils.aoa_to_sheet(data);
+      var ws2 = XLSX.utils.aoa_to_sheet(data2);
+      /* add worksheet to workbook */
+      XLSX.utils.book_append_sheet(wb, ws, ws_name);
+      XLSX.utils.book_append_sheet(wb, ws2, ws_name2);
+      /* write workbook */
+      if (typeof console !== 'undefined') console.log(new Date());
+      XLSX.writeFile(wb, filename);
+      if (typeof console !== 'undefined') console.log(new Date());
+
+
+    }
+
+    function toLowerCase(valor) {
+      valor = valor.toLowerCase();
+      return valor;
+    }
+
+    function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
+
+    function gRI(min, max) {
+      return Math.floor(max - Math.random() * (max - min))
+    }
+
+    function nameF(fullPath) {
+
+      var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+      var filename = fullPath.substring(startIndex);
+      if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+        filename = filename.substring(1);
+      }
+      filename = filename.replace(".csv", "");
+      return filename;
+
+    }
+  </script>
+
+</body>
+
+</html>

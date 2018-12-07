@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- (C) 2013-present  SheetJS http://sheetjs.com -->
+<!-- vim: set ts=2: -->
+<html>
+<head>
+<title>SheetJS JS-XLSX In-Browser Write Demo</title>
+<meta charset="utf-8" />
+</head>
+<body>
+<![if gt IE 9]>
+<script type="text/javascript" src="https://unpkg.com/xlsx/dist/shim.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<![endif]>
+<!--[if lte IE 9]>
+<script type="text/javascript" src="shim.min.js"></script>
+<script type="text/javascript" src="xlsx.full.min.js"></script>
+<![endif]-->
+
+<script>
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+/* original data */
+var filename = "write.xlsx";
+var data = [["Name","Type","Description","Visible"],[true, false, null, "sheetjs"],["foo","bar",new Date("2014-02-19T14:30Z"), "0.3"], ["baz", null, "qux"]];
+var data2 = [["Source","Type","Target","Directed"],[true, false, null, "sheetjs"],["foo","bar",new Date("2014-02-19T14:30Z"), "0.3"], ["baz", null, "qux"]];
+var ws_name = "Nodes";
+var ws_name2 = "Relations";
+if(typeof console !== 'undefined') console.log(new Date());
+var wb = XLSX.utils.book_new(), ws = XLSX.utils.aoa_to_sheet(data);
+var  ws2 = XLSX.utils.aoa_to_sheet(data2);
+/* add worksheet to workbook */
+XLSX.utils.book_append_sheet(wb, ws, ws_name);
+XLSX.utils.book_append_sheet(wb, ws2, ws_name2);
+/* write workbook */
+if(typeof console !== 'undefined') console.log(new Date());
+XLSX.writeFile(wb, filename);
+if(typeof console !== 'undefined') console.log(new Date());
+</script>
+
+</body>
+</html>
