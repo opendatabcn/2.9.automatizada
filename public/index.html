@@ -1,7 +1,6 @@
 <html>
-
 <head>
-  <title>OpenData SOCRATA</title>
+  <title>2.9</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
@@ -27,7 +26,8 @@
 
     img {
       margin-top: 15px;
-      margin-bottom: 15px
+      margin-bottom: 15px;
+      margin-right: 15px
     }
 
     .footnote {
@@ -50,6 +50,15 @@
       margin-top: 15px;
       margin-bottom: 15px
     }
+    img {
+        width: 25%;
+
+    }
+
+    .text{
+
+        line-height: 140px;
+    }
   </style>
 </head>
 
@@ -58,96 +67,35 @@
     <a target="_self" class="navbar-brand" href="index.html">
       Inicio
     </a>
-    <span> Ejemplos API SOCRATA </span>
+    <span>Módulo 2.9 </span>
   </nav>
   <div class="container">
-    <div class="soft">
-      <h5>Práctica ONODO</h5>
-      <a class="btn-success btn" href="example_onodo.html" target="_blank">example_onodo.html</a>
+
+        <div class="soft">
+
+    <div class="row">
+      <div class="col">
+
+        <img src="images/socrata.png">
+        <a href="example_socrata.html" target="_blank" >Práctica Socrata</a>  
+      </div>
+     
+      <div class="w-100"></div>
+      <div class="col">
+
+        <img src="images/knime.png">
+        <a href="example_knime.html" target="_blank" >Práctica Knime</a>  
+      </div>
+    
+      <div class="w-100"></div>
+      <div class="col">
+
+        <img src="images/onodo.jpg">
+        <a href="example_onodo.html" target="_blank" >Práctica Onodo</a>  
+      </div>
     </div>
-    <hr>
-    <h4>SOCRATA API Samples </h4>
-    <div class="alert alert-warning">
-      <h5> Recursos</h5>
-      <ul>
-        <li>
-          <a href="https://www.socrata.com">https://www.socrata.com</a>
-        </li>
-        <li>
-          <a href="http://docs.socratadiscovery.apiary.io">http://docs.socratadiscovery.apiary.io</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="soft">
-      <h5>Ejemplos API SOCRATA
-        <a class="headerlink" href="#ejemplos-api-socrata" title="Permalink to this headline"></a>
-      </h5>
-      <p>El API de Socrata
-        <a class="reference external" href="https://dev.socrata.com">https://dev.socrata.com</a> no ofrece diferetes niveles y métodos para poder buscar y filtra datasets.</p>
-      <p>En este primer ejemplo utilizaremos la
-        <strong>Discovery API</strong>
-        <a class="reference external" href="https://socratadiscovery.docs.apiary.io/">https://socratadiscovery.docs.apiary.io/</a> para buscar datasets en cualquier portal de Socrata</p>
-      <p>En el segundo ejemplo utilizaremos la
-        <strong>SODA API</strong> para consultar recursos en cada postal
-        <a class="reference external" href="https://dev.socrata.com/consumers/">https://dev.socrata.com/consumers/</a>
-
-      </p>
-      <h5>Ejemplos peticiones API Discovery</h5>
-      <a target="_blank" class="reference external" href="http://api.us.socrata.com/api/catalog/v1?q=crime&limit=3">http://api.us.socrata.com/api/catalog/v1?q=crime&limit=3
-      </a>
-      </p>
-      <h5>Ejemplos peticiones API Discovery</h5>
-      Simple feature
-      <br>
-      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.json?region=AFRICA">https://finances.worldbank.org/resource/45tv-a6qy.json?region=AFRICA</a>
-
-
-      SoQL
-      <br>
-      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region = 'AFRICA’ ">https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region = 'AFRICA’ </a>
-
-      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region = 'AFRICA' AND contract_signing_date > '2015-01-01T14:00:00'">https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region = 'AFRICA' AND contract_signing_date > '2015-01-01T14:00:00'</a>
-
-      <p>Discharger CSV</p>
-      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.csv">https://finances.worldbank.org/resource/45tv-a6qy.csv</a>
-
-      <p>Web</p>
-      <a target="_blank" class="reference external" href="https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3">https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3</a>
-
-      <p>Filter</p>
-      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFRICA' AND fiscal_year=2017 AND supplier!='individual' ">https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFRICA' AND fiscal_year=2017 AND supplier!='individual'
-        </a>
-
-
-
-      Ejemplos espaciales
-
-      <a target="_blank" class="reference external" href="https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_circle(incident_location, 47.59815, -122.334540, 500)">
-      https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_circle(incident_location, 47.59815, -122.334540, 500)</a>
-
-
-      <a target="_blank" class="reference external" href="https://data.cityofchicago.org/resource/alternative-fuel-locations.json?$where=within_box(location, 41.885001, -87.645939, 41.867011, -87.618516)">
-      https://data.cityofchicago.org/resource/alternative-fuel-locations.json?$where=within_box(location, 41.885001, -87.645939,
-        41.867011, -87.618516)</a>
-
-        <p>
-          <h5>Codigo fuente ejemplos</h5>
-          <a target="_blank" class="reference external" href="socrata_code.html">socrata_code.html</a>
-          </p>
 
     </div>
-    <ul>
-      <li>
-        <a class="btn-success btn" href="example_api_discovery.html" target="_blank">example_api_discovery.htm</a>
-
-        <a class="btn-success btn" href="example_maps_leaflet.html" target="_blank">example_maps_leaflet.html</a>
-
-
-      </li>
-    </ul>
-
-
   </div>
 
   <body>

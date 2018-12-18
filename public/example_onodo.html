@@ -48,22 +48,37 @@
 
 <body>
   <div class="container">
-    <h3>Onodo</h3>
-   
+    <div class="soft">
+      <h4>Práctica ONODO</h4>
+      <p>
+        Nos registramos en la web de ONODO
+        <br>
+        <a target="_blank" href="https://onodo.org/">https://onodo.org/</a>
+      </p>
+
+      <h5>Onodo es una herramienta web que permite crear gráficos de relaciones</h5>
+     
+    </div>
+    <hr>
+
+  
+  <div class="soft">
+      <p>
+          World Bank website
+         <br>
+         <a target="_blank" href="https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3">https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3
+         </a>
     <p>
-      Sample file from World Bank from API
+      1- Descargamos este CSV via API Socrats
       <br>
-      <a target="_blank" href="https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFR' AND fiscal_year=2017 AND supplier !='Individual Consultant'">https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFR' AND fiscal_year=2017 AND supplier!='Individual Consultant'
+      <a target="_blank" href="https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFR' AND fiscal_year=2017 AND supplier !='Individual Consultant'">https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region
+        = 'AFR' AND fiscal_year=2017 AND supplier!='Individual Consultant'
       </a>
     </p>
-    <p>
-      Sample file from World Bank website
-      <br>
-      <a target="_blank" href="https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3">https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3
-      </a>
+   
       <form>
         <div class="form-group">
-          <label for="exampleInputFile">1-Load CSV</label>
+          <label for="exampleInputFile">2-Load CSV</label>
           <input type="file" class="my-file-input" id="exampleInputFile">
           <p class="help-block">Load CSV file.</p>
         </div>
@@ -100,7 +115,7 @@
       <div id="mygrid" style="height: 500px;font-size: 0.8em;"></div>
 
   </div>
-
+</div>
   <script>
     $.ajaxSetup({
       cache: true

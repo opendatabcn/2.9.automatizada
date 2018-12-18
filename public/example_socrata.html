@@ -1,0 +1,151 @@
+<html>
+<head>
+  <title>OpenData SOCRATA</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+    crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  <link rel="stylesheet" href="stylesheets/application.11e41852.css">
+  <style>
+    ul {
+      margin-top: 15px
+    }
+
+    pre {
+      background-color: rgb(235, 232, 232);
+      margin-top: 15px;
+      margin-bottom: 15px
+    }
+
+    img {
+      margin-top: 15px;
+      margin-bottom: 15px
+    }
+
+    .footnote {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+
+    }
+
+    .soft {
+
+      background-color: #fcf9f9;
+      padding: 10px;
+
+    }
+
+    .git {
+      background-color: #333333;
+      color: #00ff00;
+      margin-top: 15px;
+      margin-bottom: 15px
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <a target="_self" class="navbar-brand" href="index.html">
+      Inicio
+    </a>
+    <span> Ejemplos API SOCRATA </span>
+  </nav>
+  <div class="container">
+    <h4>SOCRATA API Samples </h4>
+    <div class="alert alert-warning">
+      <h5> Recursos</h5>
+      <ul>
+        <li>
+          <a href="https://www.socrata.com">https://www.socrata.com</a>
+        </li>
+        <li>
+          <a href="http://docs.socratadiscovery.apiary.io">http://docs.socratadiscovery.apiary.io</a>
+        </li>
+      </ul>
+    </div>
+    <div class="soft">
+      <h5>Ejemplos API SOCRATA
+        <a class="headerlink" href="#ejemplos-api-socrata" title="Permalink to this headline"></a>
+      </h5>
+      <p>El API de Socrata
+        <a class="reference external" href="https://dev.socrata.com">https://dev.socrata.com</a> no ofrece diferetes
+        niveles y métodos para poder buscar y filtra datasets.</p>
+      <p>En este primer ejemplo utilizaremos la
+        <strong>Discovery API</strong>
+        <a class="reference external" href="https://socratadiscovery.docs.apiary.io/">https://socratadiscovery.docs.apiary.io/</a>
+        para buscar datasets en cualquier portal de Socrata</p>
+      <p>En el segundo ejemplo utilizaremos la
+        <strong>SODA API</strong> para consultar recursos en cada postal
+        <a class="reference external" href="https://dev.socrata.com/consumers/">https://dev.socrata.com/consumers/</a>
+      </p>
+      <h5>Ejemplos peticiones API Discovery</h5>
+      <a target="_blank" class="reference external" href="http://api.us.socrata.com/api/catalog/v1?q=crime&limit=3">http://api.us.socrata.com/api/catalog/v1?q=crime&limit=3
+      </a>
+      </p>
+      <h5>Ejemplos peticiones API Discovery</h5>
+      Simple feature
+      <br>
+      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.json?region=AFR">https://finances.worldbank.org/resource/45tv-a6qy.json?region=AFR</a>
+      SoQL
+      <br>
+      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region = 'AFR’ ">https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region
+        = 'AFR’ </a>
+
+      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region = 'AFR' AND contract_signing_date > '2015-01-01T14:00:00'">https://finances.worldbank.org/resource/45tv-a6qy.json?$where=region
+        = 'AFR' AND contract_signing_date > '2015-01-01T14:00:00'</a>
+
+      <p>Discharger CSV</p>
+      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.csv">https://finances.worldbank.org/resource/45tv-a6qy.csv</a>
+
+      <p>Web</p>
+      <a target="_blank" class="reference external" href="https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3">https://finances.worldbank.org/Procurement/Major-Contract-Awards/kdui-wcs3</a>
+
+      <p>Filter</p>
+      <a target="_blank" class="reference external" href="https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region = 'AFR' AND fiscal_year=2017 AND supplier!='individual' ">https://finances.worldbank.org/resource/45tv-a6qy.csv?$where=region
+        = 'AFR' AND fiscal_year=2017 AND supplier!='individual'
+      </a>
+
+
+
+      Ejemplos espaciales
+
+      <a target="_blank" class="reference external" href="https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_circle(incident_location, 47.59815, -122.334540, 500)">
+        https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_circle(incident_location, 47.59815, -122.334540,
+        500)</a>
+
+
+      <a target="_blank" class="reference external" href="https://data.cityofchicago.org/resource/alternative-fuel-locations.json?$where=within_box(location, 41.885001, -87.645939, 41.867011, -87.618516)">
+        https://data.cityofchicago.org/resource/alternative-fuel-locations.json?$where=within_box(location, 41.885001,
+        -87.645939,
+        41.867011, -87.618516)</a>
+
+      <p>
+        <h5>Codigo fuente ejemplos</h5>
+        <a target="_blank" class="reference external" href="socrata_code.html">socrata_code.html</a>
+      </p>
+
+    </div>
+    <ul>
+      <li>
+        <a class="btn-success btn" href="example_api_discovery.html" target="_blank">example_api_discovery.htm</a>
+
+        <a class="btn-success btn" href="example_maps_leaflet.html" target="_blank">example_maps_leaflet.html</a>
+
+
+      </li>
+    </ul>
+
+   
+
+  <body>
+
+</html>
